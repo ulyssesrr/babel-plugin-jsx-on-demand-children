@@ -1,0 +1,14 @@
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        <LeafChild prop={true} />
+        {invalidChild}
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+};

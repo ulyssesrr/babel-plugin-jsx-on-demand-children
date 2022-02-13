@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches expected output: invalid-child.txt 1`] = `
+~~~~~~~~~~ INPUT ~~~~~~~~~~
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        <LeafChild prop={true} />
+        {invalidChild}
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+};
+~~~~~~~~~~ OUTPUT ~~~~~~~~~~
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        <LeafChild prop={true} />
+        {invalidChild}
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+}
+
+`;
+
+exports[`matches expected output: simple.txt 1`] = `
+~~~~~~~~~~ INPUT ~~~~~~~~~~
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        <LeafChild prop={true} />
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+};
+~~~~~~~~~~ OUTPUT ~~~~~~~~~~
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return <Parent LeafChild={() => <LeafChild prop={true} />}></Parent>;
+}
+
+`;
+
+exports[`matches expected output: simple-other-children.txt 1`] = `
+~~~~~~~~~~ INPUT ~~~~~~~~~~
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        <LeafChild prop={true} />
+      </JsxOnDemandChildren>
+      <Other />
+    </Parent>
+  );
+};
+~~~~~~~~~~ OUTPUT ~~~~~~~~~~
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent LeafChild={() => <LeafChild prop={true} />}>
+      <Other />
+    </Parent>
+  );
+}
+
+`;
