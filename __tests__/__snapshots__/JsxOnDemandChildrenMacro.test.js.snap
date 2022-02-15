@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JsxOnDemandChildrenMacro works: works 1`] = `
+
+'use strict';
+
+import React from 'react';
+import JsxOnDemandChildren from '../src/macro';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        <Parent.LeafChild prop={true} />
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+};
+
+      ↓ ↓ ↓ ↓ ↓ ↓
+
+"use strict";
+
+import React from "react";
+
+function Test() {
+  return <Parent LeafChild={() => <Parent.LeafChild prop={true} />}></Parent>;
+}
+
+
+`;

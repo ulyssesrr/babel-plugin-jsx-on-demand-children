@@ -2,8 +2,9 @@
   "name": "babel-plugin-jsx-on-demand-children",
   "version": "1.0.0",
   "description": "Allow JSX children to be rendered on demand.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build": "node ./esbuild.js",
     "test": "jest"
   },
   "repository": {
@@ -15,7 +16,8 @@
     "jsx",
     "children",
     "babel",
-    "react-component"
+    "react-component",
+    "babel-plugin-macros"
   ],
   "author": {
     "name": "Ulysses R. Ribeiro",
@@ -27,10 +29,13 @@
   },
   "homepage": "https://github.com/ulyssesrr/babel-plugin-jsx-on-demand-children#readme",
   "dependencies": {
-    "@babel/core": "^7.17.2"
+    "@babel/core": "^7.17.2",
+    "babel-plugin-macros": "^3.1.0"
   },
   "devDependencies": {
     "@babel/register": "^7.17.0",
+    "babel-plugin-tester": "^10.1.0",
+    "esbuild": "^0.14.21",
     "jest": "^27.5.1",
     "prettier": "^2.5.1"
   }

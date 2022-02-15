@@ -1,12 +1,12 @@
 
 Todo:
-  [ ] LICENSE
-  [ ] README.md
+  ✔ LICENSE @done(22-02-15 02:35)
+  ✔ README.md @done(22-02-15 02:35)
   [ ] eslint
   [ ] components.ts
   [ ] index.d.ts
   [ ] flow.js
   [ ] Prettier
   [ ] Husky
-  [ ] Tests
+  ✔ Tests @done(22-02-15 02:35)
   [ ] Coverage

@@ -1,7 +1,7 @@
 <div>
 <h1>babel-plugin-jsx-on-demand-children</h1>
 
-<p>Utilities for testing babel plugins</p>
+<p>Babel plugin/macro offering a pleasnt syntax for rendering children on demand.</p>
 </div>
 
 ---
@@ -36,22 +36,22 @@ wrapping the statement in a function.
 <IfComponent condition={item} render={() => (<Text>{item.title}</Text>)}></IfComponent>
 ```
 
-This is precisely what this plugin/macro does:
+This is precisely what this plugin/macro does, albeit with a slightly different syntax:
 ```javascript
 <AsyncHandler status={status}>
   <JsxOnDemandChildren>
-    <Loading>...</Loading>
-    <Success>...</Success>
-    <Error>...</Error>
+    <AsyncHandler.Loading>...</AsyncHandler.Loading>
+    <AsyncHandler.Success>...</AsyncHandler.Success>
+    <AsyncHandler.Error>...</AsyncHandler.Error>
   </JsxOnDemandChildren>
 </AsyncHandler>
 ```
 becomes:
 ```javascript
 <AsyncHandler 
-  Loading={() => <Loading>...</Loading>} 
-  Success={() => <Success>...</Success>}
-  Error={() => <Error>...</Error>}>
+  Loading={() => <AsyncHandler.Loading>...</AsyncHandler.Loading>} 
+  Success={() => <AsyncHandler.Success>...</AsyncHandler.Success>}
+  Error={() => <AsyncHandler.Error>...</AsyncHandler.Error>}>
 </AsyncHandler>
 ```
 This is most useful for components written to take advantage of this plugin, in the example above the `AsyncHandler` component could look like this:
@@ -91,30 +91,35 @@ const JsxOnDemandChildren = require('babel-plugin-jsx-on-demand-children/macro')
 
 Create your custom component, ie:
 ```javascript
-const IfComponent = ({children}) = (<>{children}</>);
-const ElseComponent = ({children}) = (<>{children}</>);
 
-function Conditional({ condition, If, Else}) {
+
+export default function Conditional({ condition, If, Else}) {
   return condition ? (<If />) : (<Else />);
 }
 
-export { Conditional, IfComponent as If, ElseComponent as Else };
+Conditional.If = function({children}) {
+  return <>{children}</>;
+}
+
+Conditional.Else = function({children}) {
+  return <>{children}</>;
+}
 ```
 
 Use with `<JsxOnDemandChildren>`:
 ```javascript
-import { Conditional, If, Else } from './Conditional';
+import Conditional from './Conditional';
 
 function SomeComponet() {
   return (
     <Conditional condition={isOk}>
       <JsxOnDemandChildren>
-        <If>
+        <Conditional.If>
           <Text>Everything is fine!</Text>
-        </If>
-        <Else>
+        </Conditional.If>
+        <Conditional.Else>
           <Text>We have a problem!</Text>
-        </Else>
+        </Conditional.Else>
       </JsxOnDemandChildren>
     </Conditional>
   );

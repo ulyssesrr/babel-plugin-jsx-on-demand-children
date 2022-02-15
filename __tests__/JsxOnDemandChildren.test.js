@@ -23,11 +23,11 @@ expect.addSnapshotSerializer({
 
 
 const fixturesPath = `${__dirname}/fixtures`
-const fixtures = fs.readdirSync(fixturesPath);
 
-test.each(fixtures)('matches expected output: %s', file => {
-  const input = fs.readFileSync(path.join(fixturesPath, file), 'utf8');
-  
+const validFixturesPath = path.join(fixturesPath, 'valid');
+const validFixtures = fs.readdirSync(validFixturesPath);
+test.each(validFixtures)('matches expected output: %s', file => {
+  const input = fs.readFileSync(path.join(validFixturesPath, file), 'utf8');
   const output = transformerWithOptions({})(input, file);
 
   expect({
@@ -35,4 +35,15 @@ test.each(fixtures)('matches expected output: %s', file => {
     input,
     output,
   }).toMatchSnapshot();
+});
+
+
+const errorFixturesPath = path.join(fixturesPath, 'error');
+const errorFixtures = fs.readdirSync(errorFixturesPath);
+test.each(errorFixtures)('matches expected output: %s', file => {
+  const input = fs.readFileSync(path.join(errorFixturesPath, file), 'utf8');
+
+  const outputFunc = () => transformerWithOptions({})(input, file);
+
+  expect(outputFunc).toThrowErrorMatchingSnapshot();
 });

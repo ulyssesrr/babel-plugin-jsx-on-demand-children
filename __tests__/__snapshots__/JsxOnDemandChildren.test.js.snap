@@ -1,37 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches expected output: invalid-child.txt 1`] = `
-~~~~~~~~~~ INPUT ~~~~~~~~~~
-'use strict';
+exports[`matches expected output: invalid-child-node-name.txt 1`] = `
+"/invalid-child-node-name.txt: On demand nodes inside <Parent> must be a member of it, got <LeafChild>, did you mean <Parent.LeafChild> ?
+   7 |     <Parent>
+   8 |       <JsxOnDemandChildren>
+>  9 |         <LeafChild prop={true} />
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |       </JsxOnDemandChildren>
+  11 |     </Parent>
+  12 |   );"
+`;
 
-import React from 'react';
-
-function Test() {
-  return (
-    <Parent>
-      <JsxOnDemandChildren>
-        <LeafChild prop={true} />
-        {invalidChild}
-      </JsxOnDemandChildren>
-    </Parent>
-  );
-};
-~~~~~~~~~~ OUTPUT ~~~~~~~~~~
-'use strict';
-
-import React from 'react';
-
-function Test() {
-  return (
-    <Parent>
-      <JsxOnDemandChildren>
-        <LeafChild prop={true} />
-        {invalidChild}
-      </JsxOnDemandChildren>
-    </Parent>
-  );
-}
-
+exports[`matches expected output: invalid-child-type.txt 1`] = `
+"/invalid-child-type.txt: On demand nodes inside <Parent> must be a member of it, got <LeafChild>, did you mean <Parent.LeafChild> ?
+   7 |     <Parent>
+   8 |       <JsxOnDemandChildren>
+>  9 |         <LeafChild prop={true} />
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |         {invalidChild}
+  11 |       </JsxOnDemandChildren>
+  12 |     </Parent>"
 `;
 
 exports[`matches expected output: simple.txt 1`] = `
@@ -44,7 +32,7 @@ function Test() {
   return (
     <Parent>
       <JsxOnDemandChildren>
-        <LeafChild prop={true} />
+        <Parent.LeafChild prop={true} />
       </JsxOnDemandChildren>
     </Parent>
   );
@@ -55,7 +43,7 @@ function Test() {
 import React from 'react';
 
 function Test() {
-  return <Parent LeafChild={() => <LeafChild prop={true} />}></Parent>;
+  return <Parent LeafChild={() => <Parent.LeafChild prop={true} />}></Parent>;
 }
 
 `;
@@ -70,7 +58,7 @@ function Test() {
   return (
     <Parent>
       <JsxOnDemandChildren>
-        <LeafChild prop={true} />
+        <Parent.LeafChild prop={true} />
       </JsxOnDemandChildren>
       <Other />
     </Parent>
@@ -83,7 +71,7 @@ import React from 'react';
 
 function Test() {
   return (
-    <Parent LeafChild={() => <LeafChild prop={true} />}>
+    <Parent LeafChild={() => <Parent.LeafChild prop={true} />}>
       <Other />
     </Parent>
   );
