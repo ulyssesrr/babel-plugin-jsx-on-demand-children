@@ -115,10 +115,10 @@ function SomeComponet() {
     <Conditional condition={isOk}>
       <JsxOnDemandChildren>
         <Conditional.If>
-          <Text>Everything is fine!</Text>
+          Everything is fine!
         </Conditional.If>
         <Conditional.Else>
-          <Text>We have a problem!</Text>
+          We have a problem!
         </Conditional.Else>
       </JsxOnDemandChildren>
     </Conditional>
