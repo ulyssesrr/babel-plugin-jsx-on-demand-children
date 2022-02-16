@@ -8,6 +8,7 @@
 
 <!-- prettier-ignore-start -->
 [![Build Status][build-badge]][build]
+[![Babel Macro][babel-plugin-macros-badge]][babel-plugin-macros]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
 [![downloads][downloads-badge]][npmtrends]
@@ -133,10 +134,12 @@ MIT
 <!-- prettier-ignore-start -->
 [npm]: https://www.npmjs.com
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/babel-utils/babel-plugin-jsx-on-demand-children.svg?style=flat-square
-[build]: https://travis-ci.org/babel-utils/babel-plugin-jsx-on-demand-children
+[build-badge]: https://img.shields.io/github/workflow/status/ulyssesrr/babel-plugin-jsx-on-demand-children/Node.js%20CI
+[build]: https://github.com/ulyssesrr/babel-plugin-jsx-on-demand-children/actions
 [coverage-badge]: https://img.shields.io/codecov/c/github/babel-utils/babel-plugin-jsx-on-demand-children.svg?style=flat-square
 [coverage]: https://codecov.io/github/babel-utils/babel-plugin-jsx-on-demand-children
+[babel-plugin-macros-badge]: https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square
+[babel-plugin-macros]: https://github.com/kentcdodds/babel-plugin-macros
 [version-badge]: https://img.shields.io/npm/v/babel-plugin-jsx-on-demand-children.svg?style=flat-square
 [package]: https://www.npmjs.com/package/babel-plugin-jsx-on-demand-children
 [downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-jsx-on-demand-children.svg?style=flat-square
