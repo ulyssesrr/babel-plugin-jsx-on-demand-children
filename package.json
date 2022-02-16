@@ -2,10 +2,15 @@
   "name": "babel-plugin-jsx-on-demand-children",
   "version": "0.1.0",
   "description": "Allow JSX children to be rendered on demand.",
-  "main": "lib/index.js",
+  "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "node ./esbuild.js && cp package.json lib/",
-    "test": "jest --coverage"
+    "prebuild": "rm -rf dist",
+    "build": "node ./esbuild.js",
+    "postbuild": "cp README.md LICENSE dist/ && grep -v '\"private\":' ./package.json > dist/package.json",
+    "test": "jest --coverage",
+    "prepublish:dist": "npm test && npm run build",
+    "publish:dist": "npm run build && npm publish --dry-run dist"
   },
   "repository": {
     "type": "git",

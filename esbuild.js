@@ -3,10 +3,10 @@ const esbuild = require('esbuild');
 esbuild
   .build({
     entryPoints: ['src/index.js', 'src/macro.js'],
-    outdir: 'lib',
-    bundle: true,
-    sourcemap: true,
-    minify: true,
+    outdir: 'dist',
+    bundle: false,
+    sourcemap: false,
+    minify: false,
     platform: 'node',
     target: ['node10.4'],
   })
