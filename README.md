@@ -136,8 +136,8 @@ MIT
 [node]: https://nodejs.org
 [build-badge]: https://img.shields.io/github/workflow/status/ulyssesrr/babel-plugin-jsx-on-demand-children/Node.js%20CI
 [build]: https://github.com/ulyssesrr/babel-plugin-jsx-on-demand-children/actions
-[coverage-badge]: https://img.shields.io/codecov/c/github/babel-utils/babel-plugin-jsx-on-demand-children.svg?style=flat-square
-[coverage]: https://codecov.io/github/babel-utils/babel-plugin-jsx-on-demand-children
+[coverage-badge]: https://img.shields.io/codecov/c/github/ulyssesrr/babel-plugin-jsx-on-demand-children/main
+[coverage]: https://app.codecov.io/gh/ulyssesrr/babel-plugin-jsx-on-demand-children
 [babel-plugin-macros-badge]: https://img.shields.io/badge/babel--macro-%F0%9F%8E%A3-f5da55.svg?style=flat-square
 [babel-plugin-macros]: https://github.com/kentcdodds/babel-plugin-macros
 [version-badge]: https://img.shields.io/npm/v/babel-plugin-jsx-on-demand-children.svg?style=flat-square

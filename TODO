@@ -2,11 +2,11 @@
 Todo:
   ✔ LICENSE @done(22-02-15 02:35)
   ✔ README.md @done(22-02-15 02:35)
+  ✔ Tests @done(22-02-15 02:35)
+  ✔ Track Coverage @done(22-02-16 01:44)
+  [ ] 100% Coverage
   [ ] eslint
-  [ ] components.ts
-  [ ] index.d.ts
-  [ ] flow.js
+  [ ] index.d.ts/components.ts
+  [ ] flow.js?
   [ ] Prettier
   [ ] Husky
-  ✔ Tests @done(22-02-15 02:35)
-  [ ] Coverage
