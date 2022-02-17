@@ -6,8 +6,8 @@ function Test() {
   return (
     <Parent>
       <JsxOnDemandChildren>
-        <LeafChild prop={true} />
-        {invalidChild}
+        text
+        <Parent.LeafChild prop={true} />
       </JsxOnDemandChildren>
     </Parent>
   );

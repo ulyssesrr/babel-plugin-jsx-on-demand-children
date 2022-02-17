@@ -1,0 +1,13 @@
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        {invalidChild}
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+};

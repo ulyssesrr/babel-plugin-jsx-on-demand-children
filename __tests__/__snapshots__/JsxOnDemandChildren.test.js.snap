@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`matches expected output: empty-children.txt 1`] = `
+"/empty-children.txt: No child nodes inside <JsxOnDemandChildren>.
+   6 |   return (
+   7 |     <Parent>
+>  8 |       <JsxOnDemandChildren></JsxOnDemandChildren>
+     |       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   9 |     </Parent>
+  10 |   );
+  11 | };"
+`;
+
+exports[`matches expected output: invalid-child-node-membership.txt 1`] = `
+"/invalid-child-node-membership.txt: On demand nodes inside <Parent> must be a member of it, got <NotParent.LeafChild>, did you mean <Parent.LeafChild> ?
+   7 |     <Parent>
+   8 |       <JsxOnDemandChildren>
+>  9 |         <NotParent.LeafChild prop={true} />
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |       </JsxOnDemandChildren>
+  11 |     </Parent>
+  12 |   );"
+`;
+
 exports[`matches expected output: invalid-child-node-name.txt 1`] = `
 "/invalid-child-node-name.txt: On demand nodes inside <Parent> must be a member of it, got <LeafChild>, did you mean <Parent.LeafChild> ?
    7 |     <Parent>
@@ -11,15 +33,48 @@ exports[`matches expected output: invalid-child-node-name.txt 1`] = `
   12 |   );"
 `;
 
-exports[`matches expected output: invalid-child-type.txt 1`] = `
-"/invalid-child-type.txt: On demand nodes inside <Parent> must be a member of it, got <LeafChild>, did you mean <Parent.LeafChild> ?
+exports[`matches expected output: invalid-child-node-type.txt 1`] = `
+"/invalid-child-node-type.txt: Unexpected child node type: JSXNamespacedName inside <JsxOnDemandChildren>.
    7 |     <Parent>
    8 |       <JsxOnDemandChildren>
->  9 |         <LeafChild prop={true} />
-     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
-  10 |         {invalidChild}
-  11 |       </JsxOnDemandChildren>
-  12 |     </Parent>"
+>  9 |         <Parent:LeafChild prop={true} />
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |       </JsxOnDemandChildren>
+  11 |     </Parent>
+  12 |   );"
+`;
+
+exports[`matches expected output: invalid-child-type-any.txt 1`] = `
+"/invalid-child-type-any.txt: Invalid child (JSXExpressionContainer) inside <JsxOnDemandChildren>.
+   7 |     <Parent>
+   8 |       <JsxOnDemandChildren>
+>  9 |         {invalidChild}
+     |         ^^^^^^^^^^^^^^
+  10 |       </JsxOnDemandChildren>
+  11 |     </Parent>
+  12 |   );"
+`;
+
+exports[`matches expected output: invalid-child-type-non-empty-text.txt 1`] = `
+"/invalid-child-type-non-empty-text.txt: Text is not allowed inside <JsxOnDemandChildren>.
+   6 |   return (
+   7 |     <Parent>
+>  8 |       <JsxOnDemandChildren>
+     |                            ^
+   9 |         text
+  10 |         <Parent.LeafChild prop={true} />
+  11 |       </JsxOnDemandChildren>"
+`;
+
+exports[`matches expected output: overriding-prop.txt 1`] = `
+"/overriding-prop.txt: On demand node <Parent.LeafChild> would override prop 'LeafChild' in <Parent>.
+   7 |     <Parent LeafChild={someValue}>
+   8 |       <JsxOnDemandChildren>
+>  9 |         <Parent.LeafChild prop={true} />
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  10 |       </JsxOnDemandChildren>
+  11 |     </Parent>
+  12 |   );"
 `;
 
 exports[`matches expected output: simple.txt 1`] = `

@@ -1,5 +1,5 @@
 'use strict';
-const Babel = require('@babel/core');
+//const Babel = require('@babel/core');
 
 function addNodeAttribute(babel, openingElement, attributeName, attributeValue) {
   const { types: t } = babel;
@@ -9,7 +9,7 @@ function addNodeAttribute(babel, openingElement, attributeName, attributeValue) 
   )
 
   if (existingProp) {
-    existingProp.node.value.value = attributeValue;
+    existingProp.value = attributeValue;
   } else {
     const newProp = t.jSXAttribute(
       t.jSXIdentifier(attributeName),
@@ -18,6 +18,7 @@ function addNodeAttribute(babel, openingElement, attributeName, attributeValue) 
 
     openingElement.attributes.push(newProp);
   }
+  return existingProp;
 }
 
 /**
@@ -29,12 +30,17 @@ function createJsxOnDemandContainerHandler(babel) {
   const IGNORED_AST_TYPES = ['JSXText']
 
   return function (path) {
+    const onDemandNodeName = path.node.openingElement.name.name;
     const parentPath = path.parentPath;
 
     const { openingElement } = parentPath.node;
     const nodeName = openingElement.name.name;
 
     const { children } = path.node;
+
+    if (children.length === 0) {
+      throw path.hub.buildError(path.node, `No child nodes inside <${onDemandNodeName}>.`);
+    }
 
     for (const child of children) {
       if (child.type === 'JSXElement') {
@@ -53,13 +59,19 @@ function createJsxOnDemandContainerHandler(babel) {
           const renderFuncExpression = t.arrowFunctionExpression([], child);
 
           const attributeName = childNameNode.property.name;
-          addNodeAttribute(babel, openingElement, attributeName, t.jsxExpressionContainer(renderFuncExpression));
+          const existingProp = addNodeAttribute(babel, openingElement, attributeName, t.jsxExpressionContainer(renderFuncExpression));
+          if (existingProp) {
+            throw path.hub.buildError(child, `On demand node <${nodeName}.${childNameNode.property.name}> would override prop '${attributeName}' in <${nodeName}>.`);
+          }
         } else {
-          throw path.hub.buildError(child, `Unexpected child node type: ${childNameNode.type}`);
+          throw path.hub.buildError(child, `Unexpected child node type: ${childNameNode.type} inside <${onDemandNodeName}>.`);
         }
-      } else if (!IGNORED_AST_TYPES.includes(child.type)) {
-        console.log("Invalid child: ", child)
-        throw path.hub.buildError(child, `Invalid child (${child.type}) inside <${nodeName}>`);
+      } else if (child.type === 'JSXText') {
+        if (child.value.replace(/[\s\r\n\t]/g, "").length !== 0) {
+          throw path.hub.buildError(child, `Text is not allowed inside <${onDemandNodeName}>.`);
+        }
+      } else {
+        throw path.hub.buildError(child, `Invalid child (${child.type}) inside <${onDemandNodeName}>.`);
       }
     }
 

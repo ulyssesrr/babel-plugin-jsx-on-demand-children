@@ -1,0 +1,13 @@
+'use strict';
+
+import React from 'react';
+
+function Test() {
+  return (
+    <Parent LeafChild={someValue}>
+      <JsxOnDemandChildren>
+        <Parent.LeafChild prop={true} />
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+};

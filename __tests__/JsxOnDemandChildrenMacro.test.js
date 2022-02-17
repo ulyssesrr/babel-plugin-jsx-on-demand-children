@@ -9,21 +9,65 @@ pluginTester({
   title: 'JsxOnDemandChildrenMacro',
   babelOptions: { filename: __filename, parserOpts: { plugins: ['jsx'] } },
   tests: {
-    works: `
-      'use strict';
+    works: {
+      code: `
+        'use strict';
 
-      import React from 'react';
-      import JsxOnDemandChildren from '../src/macro';
+        import React from 'react';
+        import JsxOnDemandChildren from '../src/macro';
 
-      function Test() {
-        return (
-          <Parent>
-            <JsxOnDemandChildren>
-              <Parent.LeafChild prop={true} />
-            </JsxOnDemandChildren>
-          </Parent>
-        );
-      };
-    `,
+        function Test() {
+          return (
+            <Parent>
+              <JsxOnDemandChildren>
+                <Parent.LeafChild prop={true} />
+              </JsxOnDemandChildren>
+            </Parent>
+          );
+        };
+      `,
+    },
+    'Invalid usage: no parent': {
+      code:`
+        'use strict';
+
+        import React from 'react';
+        import JsxOnDemandChildren from '../src/macro';
+
+        JsxOnDemandChildren;
+
+        function Test() {
+          return (
+            <Parent>
+              <JsxOnDemandChildren>
+                <Parent.LeafChild prop={true} />
+              </JsxOnDemandChildren>
+            </Parent>
+          );
+        };
+      `,
+      error: SyntaxError,
+    },
+    'Invalid usage: not JSXElement': {
+      code: `
+        'use strict';
+
+        import React from 'react';
+        import JsxOnDemandChildren from '../src/macro';
+
+        JsxOnDemandChildren.invalid = true;
+
+        function Test() {
+          return (
+            <Parent>
+              <JsxOnDemandChildren>
+                <Parent.LeafChild prop={true} />
+              </JsxOnDemandChildren>
+            </Parent>
+          );
+        };
+      `,
+      error: SyntaxError,
+    },
   },
 });

@@ -9,9 +9,11 @@ function JsxOnDemandChildrenMacro({ references, babel }) {
     const referencesByKey = references[referenceKey];
     for (const path of referencesByKey) {
       const { parentPath } = path;
-      if (parentPath?.node?.type === 'JSXOpeningElement') {
+      if (parentPath.node.type === 'JSXOpeningElement') {
         const jsxElementPath = parentPath.parentPath;
         nodeHandler(jsxElementPath);
+      } else if (parentPath.node.type !== 'JSXClosingElement') {
+        throw path.hub.buildError(path.node, `Invalid usage of JsxOnDemandChildren.`);
       }
     }
     

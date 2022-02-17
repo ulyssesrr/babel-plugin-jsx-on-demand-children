@@ -3,7 +3,8 @@ module.exports = {
     "^.+\\.js?$": [
       "esbuild-jest",
       {
-        target: 'node10.4'
+        target: 'node10.4',
+        sourcemap: true
       }
     ]
   },
