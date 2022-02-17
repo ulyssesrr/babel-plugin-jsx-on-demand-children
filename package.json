@@ -5,9 +5,11 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "prebuild": "rm -rf dist",
+    "clean": "rm -rf dist",
+    "prebuild": "npm run clean",
     "build": "node ./esbuild.js",
     "postbuild": "cp README.md LICENSE dist/ && grep -v '\"private\":' ./package.json > dist/package.json",
+    "pretest": "npm run clean",
     "test": "jest --coverage",
     "prepublish:dist": "npm test && npm run build",
     "publish:dist": "npm run build && npm publish --dry-run dist"

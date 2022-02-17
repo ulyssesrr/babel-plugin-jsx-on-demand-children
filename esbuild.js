@@ -1,8 +1,15 @@
+const fs = require('fs');
 const esbuild = require('esbuild');
 
+const sourceFiles = fs.readdirSync('./src/')
+  .filter((fileName) => (fileName.endsWith('.js')))
+  .map((fileName) => (`src/${fileName}`));
+
+console.log("Building...");
+console.log(sourceFiles);
 esbuild
   .build({
-    entryPoints: ['src/index.js', 'src/macro.js'],
+    entryPoints: sourceFiles,
     outdir: 'dist',
     bundle: false,
     sourcemap: false,
