@@ -1,7 +1,7 @@
 <div>
 <h1>babel-plugin-jsx-on-demand-children</h1>
 
-<p>Babel plugin/macro offering a pleasnt syntax for rendering children on demand.</p>
+<p>Babel plugin/macro offering a pleasant syntax for rendering children on demand.</p>
 </div>
 
 ---
@@ -58,13 +58,23 @@ becomes:
 This is most useful for components written to take advantage of this plugin, in the example above the `AsyncHandler` component could look like this:
 
 ```javascript
-function AsyncHandler({status, Loading, Success, Error}) {
-  return (
-    {status === 'loading' && <Loading/>}
-    {status === 'success' && <Success/>}
-    {status === 'error' && <Error/>}
-  );
+export default function AsyncHandler({ status, Loading, Success, Error }) {
+  switch (status) {
+    case 'success':
+      return <Success />;
+    case 'error':
+      return Error ? <Error /> : null;
+    case 'loading':
+    default:
+      return <Loading />;
+  }
 }
+
+AsyncHandler.Loading = ({ children }) => <>{children}</>;
+
+AsyncHandler.Success = ({ children }) => <>{children}</>;
+
+AsyncHandler.Error = ({ children }) => <>{children}</>;
 ```
 ## Installation
 
@@ -111,7 +121,7 @@ Use with `<JsxOnDemandChildren>`:
 ```javascript
 import Conditional from './Conditional';
 
-function SomeComponet() {
+function SomeComponent() {
   return (
     <Conditional condition={isOk}>
       <JsxOnDemandChildren>
