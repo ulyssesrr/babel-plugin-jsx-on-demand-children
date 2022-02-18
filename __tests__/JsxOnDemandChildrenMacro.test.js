@@ -1,73 +1,39 @@
 'use strict';
+import babelPluginMacros from 'babel-plugin-macros';
+import { transformerWithOptions, snapshotSerializer, FIXTURE_TAG } from './transformerWithOptions';
+import { readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
 
-const plugin = require('babel-plugin-macros');
-const pluginTester = require('babel-plugin-tester').default
 
-pluginTester({
-  plugin,
-  snapshot: true,
-  title: 'JsxOnDemandChildrenMacro',
-  babelOptions: { filename: __filename, parserOpts: { plugins: ['jsx'] } },
-  tests: {
-    works: {
-      code: `
-        'use strict';
 
-        import React from 'react';
-        import JsxOnDemandChildren from '../src/macro';
+expect.addSnapshotSerializer(snapshotSerializer);
 
-        function Test() {
-          return (
-            <Parent>
-              <JsxOnDemandChildren>
-                <Parent.LeafChild prop={true} />
-              </JsxOnDemandChildren>
-            </Parent>
-          );
-        };
-      `,
-    },
-    'Invalid usage: no parent': {
-      code:`
-        'use strict';
 
-        import React from 'react';
-        import JsxOnDemandChildren from '../src/macro';
+const fixturesPath = `${__dirname}/fixtures/macro`;
 
-        JsxOnDemandChildren;
+const validFixturesPath = join(fixturesPath, 'valid');
+const validFixtures = readdirSync(validFixturesPath);
 
-        function Test() {
-          return (
-            <Parent>
-              <JsxOnDemandChildren>
-                <Parent.LeafChild prop={true} />
-              </JsxOnDemandChildren>
-            </Parent>
-          );
-        };
-      `,
-      error: SyntaxError,
-    },
-    'Invalid usage: not JSXElement': {
-      code: `
-        'use strict';
+const plugin = babelPluginMacros;
+const pluginOpts = {};
+test.each(validFixtures)('matches expected output: %s', file => {
+  const input = readFileSync(join(validFixturesPath, file), 'utf8');
+  const output = transformerWithOptions([[plugin, pluginOpts]])(input, file);
 
-        import React from 'react';
-        import JsxOnDemandChildren from '../src/macro';
+  expect({
+    [FIXTURE_TAG]: true,
+    input,
+    output,
+  }).toMatchSnapshot();
+});
 
-        JsxOnDemandChildren.invalid = true;
 
-        function Test() {
-          return (
-            <Parent>
-              <JsxOnDemandChildren>
-                <Parent.LeafChild prop={true} />
-              </JsxOnDemandChildren>
-            </Parent>
-          );
-        };
-      `,
-      error: SyntaxError,
-    },
-  },
+const errorFixturesPath = join(fixturesPath, 'error');
+const errorFixtures = readdirSync(errorFixturesPath);
+test.each(errorFixtures)('matches expected output: %s', file => {
+  const input = readFileSync(join(errorFixturesPath, file), 'utf8');
+
+  const outputFunc = () => transformerWithOptions([[plugin, pluginOpts]])(input, file);
+
+  expect(outputFunc).toThrowErrorMatchingSnapshot();
 });

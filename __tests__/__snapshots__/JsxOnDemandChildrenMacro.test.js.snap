@@ -1,71 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`JsxOnDemandChildrenMacro Invalid usage: no parent: Invalid usage: no parent 1`] = `
-
-'use strict';
-
-import React from 'react';
-import JsxOnDemandChildren from '../src/macro';
-
-JsxOnDemandChildren;
-
-function Test() {
-  return (
-    <Parent>
-      <JsxOnDemandChildren>
-        <Parent.LeafChild prop={true} />
-      </JsxOnDemandChildren>
-    </Parent>
-  );
-};
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-SyntaxError: /home/ulysses/git/personal/react/babel-plugin-jsx-on-demand-children/__tests__/JsxOnDemandChildrenMacro.test.js: ../src/macro: Invalid usage of JsxOnDemandChildren.
-[0m [90m 4 |[39m [36mimport[39m [33mJsxOnDemandChildren[39m [36mfrom[39m [32m'../src/macro'[39m[33m;[39m[0m
-[0m [90m 5 |[39m[0m
-[0m[31m[1m>[22m[39m[90m 6 |[39m [33mJsxOnDemandChildren[39m[33m;[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
-[0m [90m 7 |[39m[0m
-[0m [90m 8 |[39m [36mfunction[39m [33mTest[39m() {[0m
-[0m [90m 9 |[39m   [36mreturn[39m ([0m
-
+exports[`matches expected output: no-parent.txt 1`] = `
+"/no-parent.txt: ../src/macro: Invalid usage of JsxOnDemandChildren.
+  4 | import JsxOnDemandChildren from '../src/macro';
+  5 |
+> 6 | JsxOnDemandChildren;
+    | ^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Test() {
+  9 |   return ("
 `;
 
-exports[`JsxOnDemandChildrenMacro Invalid usage: not JSXElement: Invalid usage: not JSXElement 1`] = `
-
-'use strict';
-
-import React from 'react';
-import JsxOnDemandChildren from '../src/macro';
-
-JsxOnDemandChildren.invalid = true;
-
-function Test() {
-  return (
-    <Parent>
-      <JsxOnDemandChildren>
-        <Parent.LeafChild prop={true} />
-      </JsxOnDemandChildren>
-    </Parent>
-  );
-};
-
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-SyntaxError: /home/ulysses/git/personal/react/babel-plugin-jsx-on-demand-children/__tests__/JsxOnDemandChildrenMacro.test.js: ../src/macro: Invalid usage of JsxOnDemandChildren.
-[0m [90m 4 |[39m [36mimport[39m [33mJsxOnDemandChildren[39m [36mfrom[39m [32m'../src/macro'[39m[33m;[39m[0m
-[0m [90m 5 |[39m[0m
-[0m[31m[1m>[22m[39m[90m 6 |[39m [33mJsxOnDemandChildren[39m[33m.[39minvalid [33m=[39m [36mtrue[39m[33m;[39m[0m
-[0m [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
-[0m [90m 7 |[39m[0m
-[0m [90m 8 |[39m [36mfunction[39m [33mTest[39m() {[0m
-[0m [90m 9 |[39m   [36mreturn[39m ([0m
-
+exports[`matches expected output: not-JSXElement.txt 1`] = `
+"/not-JSXElement.txt: ../src/macro: Invalid usage of JsxOnDemandChildren.
+  4 | import JsxOnDemandChildren from '../src/macro';
+  5 |
+> 6 | JsxOnDemandChildren.invalid = true;
+    | ^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Test() {
+  9 |   return ("
 `;
 
-exports[`JsxOnDemandChildrenMacro works: works 1`] = `
-
+exports[`matches expected output: simple.txt 1`] = `
+~~~~~~~~~~ INPUT ~~~~~~~~~~
 'use strict';
 
 import React from 'react';
@@ -80,16 +38,13 @@ function Test() {
     </Parent>
   );
 };
+~~~~~~~~~~ OUTPUT ~~~~~~~~~~
+'use strict';
 
-      ↓ ↓ ↓ ↓ ↓ ↓
-
-"use strict";
-
-import React from "react";
+import React from 'react';
 
 function Test() {
   return <Parent LeafChild={() => <Parent.LeafChild prop={true} />}></Parent>;
 }
-
 
 `;

@@ -2,12 +2,11 @@
 
 test.skip('util', () => { });
 
-const JsxOnDemandChildrenPlugin = require("../src/index");
-const babel = require('@babel/core');
-const prettier = require('prettier');
+import { transform } from '@babel/core';
+import { format } from 'prettier';
 
-function transformerWithOptions(
-  options,
+export function transformerWithOptions(
+  plugins,
   environment,
   filename,
 ) {
@@ -15,15 +14,15 @@ function transformerWithOptions(
     const previousEnv = process.env.BABEL_ENV;
     try {
       process.env.BABEL_ENV = environment;
-      const code = babel.transform(text, {
+      const code = transform(text, {
         compact: false,
-        cwd: '/',
+        cwd: __dirname,
         filename: filename || providedFileName || 'test.js',
         highlightCode: false,
         parserOpts: { plugins: ['jsx'] },
-        plugins: [[JsxOnDemandChildrenPlugin, options]],
+        plugins: plugins,
       }).code;
-      return prettier.format(code, {
+      return format(code, {
         bracketSameLine: true,
         bracketSpacing: false,
         parser: 'flow',
@@ -31,10 +30,28 @@ function transformerWithOptions(
         singleQuote: true,
         trailingComma: 'all',
       });
+    } catch (e) {
+      e.message = e.message.replace(__dirname, '');
+      throw e;
     } finally {
       process.env.BABEL_ENV = previousEnv;
     }
   };
 }
 
-module.exports = transformerWithOptions;
+/**
+ * Extend Jest with a custom snapshot serializer to provide additional context
+ * and reduce the amount of escaping that occurs.
+ */
+export const FIXTURE_TAG = Symbol.for('FIXTURE_TAG');
+
+export const snapshotSerializer = {
+  print(value) {
+    return Object.keys(value)
+      .map(key => `~~~~~~~~~~ ${key.toUpperCase()} ~~~~~~~~~~\n${value[key]}`)
+      .join('\n');
+  },
+  test(value) {
+    return value && value[FIXTURE_TAG] === true;
+  },
+}

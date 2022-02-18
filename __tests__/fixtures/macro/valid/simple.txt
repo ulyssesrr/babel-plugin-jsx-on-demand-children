@@ -1,0 +1,14 @@
+'use strict';
+
+import React from 'react';
+import JsxOnDemandChildren from '../src/macro';
+
+function Test() {
+  return (
+    <Parent>
+      <JsxOnDemandChildren>
+        <Parent.LeafChild prop={true} />
+      </JsxOnDemandChildren>
+    </Parent>
+  );
+};

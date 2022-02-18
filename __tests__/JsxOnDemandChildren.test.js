@@ -1,34 +1,23 @@
 'use strict';
-
-const transformerWithOptions = require('./transformerWithOptions');
-const fs = require('fs');
-const path = require('path');
-
-
-/**
- * Extend Jest with a custom snapshot serializer to provide additional context
- * and reduce the amount of escaping that occurs.
- */
-const FIXTURE_TAG = Symbol.for('FIXTURE_TAG');
-expect.addSnapshotSerializer({
-  print(value) {
-    return Object.keys(value)
-      .map(key => `~~~~~~~~~~ ${key.toUpperCase()} ~~~~~~~~~~\n${value[key]}`)
-      .join('\n');
-  },
-  test(value) {
-    return value && value[FIXTURE_TAG] === true;
-  },
-});
+import JsxOnDemandChildrenPlugin from "../src/index";
+import { transformerWithOptions, snapshotSerializer, FIXTURE_TAG } from './transformerWithOptions';
+import { readdirSync, readFileSync } from 'fs';
+import { join } from 'path';
 
 
-const fixturesPath = `${__dirname}/fixtures`
+expect.addSnapshotSerializer(snapshotSerializer);
 
-const validFixturesPath = path.join(fixturesPath, 'valid');
-const validFixtures = fs.readdirSync(validFixturesPath);
+
+const fixturesPath = `${__dirname}/fixtures/plugin`;
+
+const validFixturesPath = join(fixturesPath, 'valid');
+const validFixtures = readdirSync(validFixturesPath);
+
+const plugin = JsxOnDemandChildrenPlugin;
+const pluginOpts = {};
 test.each(validFixtures)('matches expected output: %s', file => {
-  const input = fs.readFileSync(path.join(validFixturesPath, file), 'utf8');
-  const output = transformerWithOptions({})(input, file);
+  const input = readFileSync(join(validFixturesPath, file), 'utf8');
+  const output = transformerWithOptions([[plugin, pluginOpts]])(input, file);
 
   expect({
     [FIXTURE_TAG]: true,
@@ -38,12 +27,12 @@ test.each(validFixtures)('matches expected output: %s', file => {
 });
 
 
-const errorFixturesPath = path.join(fixturesPath, 'error');
-const errorFixtures = fs.readdirSync(errorFixturesPath);
+const errorFixturesPath = join(fixturesPath, 'error');
+const errorFixtures = readdirSync(errorFixturesPath);
 test.each(errorFixtures)('matches expected output: %s', file => {
-  const input = fs.readFileSync(path.join(errorFixturesPath, file), 'utf8');
+  const input = readFileSync(join(errorFixturesPath, file), 'utf8');
 
-  const outputFunc = () => transformerWithOptions({})(input, file);
+  const outputFunc = () => transformerWithOptions([[plugin, pluginOpts]])(input, file);
 
   expect(outputFunc).toThrowErrorMatchingSnapshot();
 });
