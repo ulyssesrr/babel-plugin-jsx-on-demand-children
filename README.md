@@ -11,7 +11,6 @@
 [![Babel Macro][babel-plugin-macros-badge]][babel-plugin-macros]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
-[![downloads][downloads-badge]][npmtrends]
 [![MIT License][license-badge]][license]
 
 [![PRs Welcome][prs-badge]][prs]
