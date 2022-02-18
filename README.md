@@ -8,11 +8,11 @@
 
 <!-- prettier-ignore-start -->
 [![Build Status][build-badge]][build]
-[![Babel Macro][babel-plugin-macros-badge]][babel-plugin-macros]
 [![Code Coverage][coverage-badge]][coverage]
 [![version][version-badge]][package]
 [![MIT License][license-badge]][license]
 
+[![Babel Macro][babel-plugin-macros-badge]][babel-plugin-macros]
 [![PRs Welcome][prs-badge]][prs]
 [![Code of Conduct][coc-badge]][coc]
 <!-- prettier-ignore-end -->
