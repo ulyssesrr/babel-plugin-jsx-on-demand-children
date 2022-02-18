@@ -154,7 +154,7 @@ MIT
 [package]: https://www.npmjs.com/package/babel-plugin-jsx-on-demand-children
 [downloads-badge]: https://img.shields.io/npm/dm/babel-plugin-jsx-on-demand-children.svg?style=flat-square
 [npmtrends]: https://www.npmtrends.com/babel-plugin-jsx-on-demand-children
-[license-badge]: https://img.shields.io/npm/l/babel-plugin-jsx-on-demand-children.svg?style=flat-square
+[license-badge]: https://img.shields.io/npm/l/babel-plugin-jsx-on-demand-children
 [license]: https://github.com/ulyssesrr/babel-plugin-jsx-on-demand-children/blob/main/LICENSE
 [prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
 [prs]: http://makeapullrequest.com
