@@ -35,16 +35,17 @@
     "url": "https://github.com/ulyssesrr/babel-plugin-jsx-on-demand-children/issues"
   },
   "homepage": "https://github.com/ulyssesrr/babel-plugin-jsx-on-demand-children#readme",
-  "dependencies": {
-    "@babel/core": "^7.17.2",
-    "babel-plugin-macros": "^3.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@babel/register": "^7.17.0",
-    "babel-plugin-tester": "^10.1.0",
+    "@babel/core": "^7.17.2",
+    "babel-plugin-macros": "^3.1.0",
     "esbuild": "^0.14.21",
     "esbuild-jest": "^0.5.0",
     "jest": "^27.5.1",
     "prettier": "^2.5.1"
+  },
+  "peerDependencies": {
+    "@babel/core": "7.x",
+    "babel-plugin-macros": "3.x"
   }
 }
