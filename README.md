@@ -172,5 +172,5 @@ MIT
 [@ulyssesrr]: https://github.com/ulyssesrr
 [@ulyssesrr.twitter]: https://twitter.com/ulysses2r
 
-[demo-asynchandler]: https://codesandbox.io/s/adoring-browser-z04udr?file=/src/App.js
+[demo-asynchandler]: https://codesandbox.io/s/jsxodc-async-handler-demo-z04udr?file=/src/App.js
 <!-- prettier-ignore-end -->
