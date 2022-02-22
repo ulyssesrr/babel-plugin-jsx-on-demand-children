@@ -136,6 +136,10 @@ function SomeComponent() {
 }
 ```
 
+## Sandbox Demos
+- [AsyncHandler Component][demo-asynchandler]
+
+
 ## LICENSE
 
 MIT
@@ -167,4 +171,6 @@ MIT
 [babel-plugin-macros.config]: https://github.com/kentcdodds/babel-plugin-macros/blob/main/other/docs/user.md#adding-the-plugin-to-your-config
 [@ulyssesrr]: https://github.com/ulyssesrr
 [@ulyssesrr.twitter]: https://twitter.com/ulysses2r
+
+[demo-asynchandler]: https://codesandbox.io/s/adoring-browser-z04udr?file=/src/App.js
 <!-- prettier-ignore-end -->
